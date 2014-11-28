@@ -201,7 +201,7 @@ namespace Snoop
 			NativeMethods.GetWindowThreadProcessId(hwnd, out processId);
 
 			var me32 = new NativeMethods.MODULEENTRY32();
-			var hModuleSnap = NativeMethods.CreateToolhelp32Snapshot(NativeMethods.SnapshotFlags.Module, processId);
+			var hModuleSnap = NativeMethods.CreateToolhelp32Snapshot(NativeMethods.SnapshotFlags.Module | NativeMethods.SnapshotFlags.Module32, processId);
 			if (!hModuleSnap.IsInvalid)
 			{
 				using (hModuleSnap)
