@@ -46,23 +46,23 @@ namespace Snoop
 			// when you do this, snoop reloads the visual tree with the visible window as the root (versus the application).
 
             // Donald
-            //if (this.application.MainWindow != null)
-            //{
-            //    bool foundMainWindow = false;
-            //    foreach (VisualTreeItem item in toBeRemoved)
-            //    {
-            //        if (item.Target == this.application.MainWindow)
-            //        {
-            //            toBeRemoved.Remove(item);
-            //            item.Reload();
-            //            foundMainWindow = true;
-            //            break;
-            //        }
-            //    }
+            if (this.application.MainWindow != null && this.application.Dispatcher == Dispatcher.CurrentDispatcher)
+            {
+                bool foundMainWindow = false;
+                foreach (VisualTreeItem item in toBeRemoved)
+                {
+                    if (item.Target == this.application.MainWindow)
+                    {
+                        toBeRemoved.Remove(item);
+                        item.Reload();
+                        foundMainWindow = true;
+                        break;
+                    }
+                }
 
-            //    if (!foundMainWindow)
-            //        this.Children.Add(VisualTreeItem.Construct(this.application.MainWindow, this));
-            //}
+                if (!foundMainWindow)
+                    this.Children.Add(VisualTreeItem.Construct(this.application.MainWindow, this));
+            }
 		}
 
 
