@@ -50,12 +50,14 @@ namespace Snoop
 			StringBuilder sb = new StringBuilder(50);
 
 			// [depth] name (type) numberOfChildren
-			sb.AppendFormat("[{0}] {1} ({2})", this.depth.ToString("D3"), this.name, this.Target.GetType().Name);
+			sb.AppendFormat("[{0}] {1} ({2})", this.depth.ToString("D3"), this.name, this.Target.GetType().Name+((this.Target.GetType().Assembly.FullName.StartsWith("Windows") || this.Target.GetType().Assembly.FullName.StartsWith("Presentation"))?"": "--" + this.Target.GetType().Assembly.FullName));
 			if (this.visualChildrenCount != 0)
 			{
 				sb.Append(' ');
 				sb.Append(this.visualChildrenCount.ToString());
 			}
+
+            
 
 			return sb.ToString();
 		}
