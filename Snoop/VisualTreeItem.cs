@@ -68,7 +68,7 @@ namespace Snoop
                              + ((this.Target.GetType().Assembly.FullName.StartsWith( "Windows" )
                                  || this.Target.GetType().Assembly.FullName.StartsWith( "Presentation" ))
                                         ? ""
-                                        : "--" + this.Target.GetType().Assembly.GetName().Name) );
+                                        : " -- " + this.Target.GetType().Assembly.GetName().Name) );
             if( this.visualChildrenCount != 0 )
             {
                 sb.Append( ' ' );
