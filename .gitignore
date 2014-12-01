@@ -1,5 +1,6 @@
 Build/
 Build/Debug/
+Build/Debug/*.*
 Intermediate/
 bin/
 obj/
