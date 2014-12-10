@@ -8,10 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Management.Automation;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -154,25 +151,25 @@ namespace Snoop
         {
             List<Visual> rootVisuals = new List<Visual>();
             List<Dispatcher> dispatchers = new List<Dispatcher>();
-            foreach (PresentationSource presentationSource in PresentationSource.CurrentSources)
+            foreach( PresentationSource presentationSource in PresentationSource.CurrentSources )
             {
                 Visual presentationSourceRootVisual = presentationSource.RootVisual;
 
-                if (!(presentationSourceRootVisual is Window))
+                if( !(presentationSourceRootVisual is Window) )
                 {
                     continue;
                 }
 
                 Dispatcher presentationSourceRootVisualDispatcher = presentationSourceRootVisual.Dispatcher;
 
-                if (dispatchers.IndexOf(presentationSourceRootVisualDispatcher) == -1)
+                if( dispatchers.IndexOf( presentationSourceRootVisualDispatcher ) == -1 )
                 {
-                    rootVisuals.Add(presentationSourceRootVisual);
-                    dispatchers.Add(presentationSourceRootVisualDispatcher);
+                    rootVisuals.Add( presentationSourceRootVisual );
+                    dispatchers.Add( presentationSourceRootVisualDispatcher );
                 }
             }
 
-            if (rootVisuals.Count > 0)
+            if( rootVisuals.Count > 0 )
             {
                 SnoopModes.MultipleDispatcherMode = true;
             }
@@ -205,8 +202,7 @@ namespace Snoop
             }
             else
             {
-
-                dispatcher = Dispatcher.CurrentDispatcher;// Application.Current.Dispatcher;
+                dispatcher = Dispatcher.CurrentDispatcher; // Application.Current.Dispatcher;
 
                 //try
                 //{
@@ -221,10 +217,9 @@ namespace Snoop
                 //}
                 //catch( Exception e )
                 //{
-                    
+
                 //    MessageBox.Show( e.ToString());
                 //}
-                
             }
 
             if( dispatcher.CheckAccess() )
@@ -237,7 +232,7 @@ namespace Snoop
                     snoop.Title = string.Format( "{0} - Snoop", title );
                 }
 
-               dispatcher.Invoke( (Action) snoop.Inspect);
+                dispatcher.Invoke( (Action) snoop.Inspect );
 
                 CheckForOtherDispatchers( dispatcher );
             }
@@ -854,8 +849,14 @@ namespace Snoop
         {
             this.OnPropertyChanged( "CurrentFocus" );
 
+            //ModifierKeys currentModifiers = InputManager.Current.PrimaryKeyboardDevice.Modifiers;
+            //if( !((currentModifiers & ModifierKeys.Control) != 0 && (currentModifiers & ModifierKeys.Shift) != 0) )
+            //{
+            //    return;
+            //}
+
             ModifierKeys currentModifiers = InputManager.Current.PrimaryKeyboardDevice.Modifiers;
-            if( !((currentModifiers & ModifierKeys.Control) != 0 && (currentModifiers & ModifierKeys.Shift) != 0) )
+            if( (currentModifiers & ModifierKeys.Alt) != 0 )
             {
                 return;
             }
